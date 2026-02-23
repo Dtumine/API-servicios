@@ -1,0 +1,27 @@
+{
+  "name": "api-supabase",
+  "version": "1.0.0",
+  "description": "API REST conectada a Supabase",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "start-clientes": "node server-clientes.js",
+    "dev-clientes": "node --watch server-clientes.js",
+    "start-ventas": "node server-ventas.js",
+    "dev-ventas": "node --watch server-ventas.js",
+    "start-empleados": "node server-empleados.js",
+    "dev-empleados": "node --watch server-empleados.js",
+    "start-servicios": "node server-servicios.js",
+    "dev-servicios": "node --watch server-servicios.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "dotenv": "^16.4.5",
+    "@supabase/supabase-js": "^2.38.4",
+    "cors": "^2.8.5"
+  }
+}
