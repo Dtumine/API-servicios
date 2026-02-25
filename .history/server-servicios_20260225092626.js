@@ -214,33 +214,9 @@ app.put('/api/servicios/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const {
-      id_auto,
-      id_empleado,
-      id_cliente,
-      fecha_servicio,
-      tipo_servicio,
-      costo,
-      kilometraje,
-      fecha_ingreso,
-      fecha_entrega,
-      estado
-    } = req.body;
-
     const { data, error } = await supabase
       .from('servicios')
-      .update({
-        id_auto,
-        id_empleado,
-        id_cliente,
-        fecha_servicio,
-        tipo_servicio,
-        costo,
-        kilometraje,
-        fecha_ingreso,
-        fecha_entrega,
-        estado
-      })
+      .update(req.body)
       .eq('id_servicio', id)
       .select();
 

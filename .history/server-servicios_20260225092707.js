@@ -273,7 +273,6 @@ app.put('/api/servicios/:id', async (req, res) => {
     });
   }
 });
-
 // 6. Eliminar servicio
 app.delete('/api/servicios/:id', async (req, res) => {
   try {

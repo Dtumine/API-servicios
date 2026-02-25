@@ -145,102 +145,16 @@ app.get('/api/servicios/:id', async (req, res) => {
   }
 });
 
-// 4. Crear servicio
-app.post('/api/servicios', async (req, res) => {
-  try {
-    const {
-      id_auto,
-      id_empleado,
-      id_cliente,
-      fecha_servicio,
-      tipo_servicio, // 👈 CAMBIADO
-      costo,
-      kilometraje,
-      fecha_ingreso,
-      fecha_entrega,
-      estado
-    } = req.body;
 
-    if (!id_auto || !id_empleado || !id_cliente || !fecha_servicio || !tipo_servicio) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Campos obligatorios faltantes'
-      });
-    }
-
-    const { data, error } = await supabase
-      .from('servicios')
-      .insert([
-        {
-          id_auto,
-          id_empleado,
-          id_cliente,
-          fecha_servicio,
-          tipo_servicio, // 👈 CAMBIADO
-          costo: costo || 0,
-          kilometraje: kilometraje || 0,
-          fecha_ingreso: fecha_ingreso || new Date().toISOString(),
-          fecha_entrega: fecha_entrega || null,
-          estado: estado || 'pendiente'
-        }
-      ])
-      .select();
-
-    if (error) {
-      return res.status(500).json({
-        status: 'error',
-        message: 'Error al crear servicio',
-        details: error.message
-      });
-    }
-
-    res.status(201).json({
-      status: 'success',
-      message: 'Servicio creado exitosamente',
-      data: data[0]
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      message: 'Error en el servidor',
-      details: error.message
-    });
-  }
-});
 
 // 5. Actualizar servicio
 app.put('/api/servicios/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const {
-      id_auto,
-      id_empleado,
-      id_cliente,
-      fecha_servicio,
-      tipo_servicio,
-      costo,
-      kilometraje,
-      fecha_ingreso,
-      fecha_entrega,
-      estado
-    } = req.body;
-
     const { data, error } = await supabase
       .from('servicios')
-      .update({
-        id_auto,
-        id_empleado,
-        id_cliente,
-        fecha_servicio,
-        tipo_servicio,
-        costo,
-        kilometraje,
-        fecha_ingreso,
-        fecha_entrega,
-        estado
-      })
+      .update(req.body)
       .eq('id_servicio', id)
       .select();
 
