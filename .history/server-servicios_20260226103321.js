@@ -108,53 +108,7 @@ app.get('/api/servicios/:id', async (req, res) => {
 // 4. CREATE
 // =============================
 
-app.post('/api/servicios', async (req, res) => {
-  try {
-    console.log("📦 BODY RECIBIDO:", req.body);
 
-    const {
-      id_auto,
-      id_empleado,
-      fecha_servicio,
-      tipo_servicio,
-      costo,
-      estado
-    } = req.body;
-
-    if (!id_auto || !id_empleado || !fecha_servicio || !tipo_servicio) {
-      return res.status(400).json({
-        message: 'Campos obligatorios faltantes'
-      });
-    }
-
-    const nuevoServicio = {
-      id_auto: Number(id_auto),
-      id_empleado: Number(id_empleado),
-      fecha_servicio,
-      tipo_servicio,
-      costo: costo ?? 0,
-      estado: (estado || 'pendiente').toLowerCase().trim()
-    };
-
-    console.log("🚀 INSERTANDO FINAL:", nuevoServicio);
-
-    const { data, error } = await supabase
-      .from('servicios')
-      .insert([nuevoServicio])
-      .select();
-
-    if (error) {
-      console.error("🔥 SUPABASE INSERT ERROR:", error);
-      return res.status(500).json(error);
-    }
-
-    res.status(201).json(data[0]);
-
-  } catch (error) {
-    console.error("🔥 CREATE CATCH:", error);
-    res.status(500).json(error);
-  }
-});
 
 // =============================
 // 5. UPDATE
