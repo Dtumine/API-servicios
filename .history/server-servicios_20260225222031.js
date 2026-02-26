@@ -169,8 +169,12 @@ app.post('/api/servicios', async (req, res) => {
     }
 
     const estadoFinal = (estado || 'pendiente').toLowerCase();
+
+
     const { data, error } = await supabase
       .from('servicios')
+
+
       .insert([
         {
           id_auto,

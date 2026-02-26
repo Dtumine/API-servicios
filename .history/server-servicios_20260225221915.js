@@ -168,8 +168,8 @@ app.post('/api/servicios', async (req, res) => {
       });
     }
 
-    const estadoFinal = (estado || 'pendiente').toLowerCase();
     const { data, error } = await supabase
+    const estadoFinal = (estado || 'pendiente').toLowerCase();
       .from('servicios')
       .insert([
         {
@@ -182,7 +182,7 @@ app.post('/api/servicios', async (req, res) => {
           kilometraje: kilometraje || 0,
           fecha_ingreso: fecha_ingreso || new Date().toISOString(),
           fecha_entrega: fecha_entrega || null,
-          estado: estadoFinal
+          estado: estado || 'pendiente'
         }
       ])
       .select();
