@@ -108,62 +108,7 @@ app.get('/api/servicios/:id', async (req, res) => {
 // 4. CREATE
 // =============================
 
-app.post('/api/servicios', async (req, res) => {
-  try {
-    console.log("📦 BODY RECIBIDO:", req.body);
 
-    const {
-      id_auto,
-      id_empleado,
-      fecha_servicio,
-      tipo_servicio,
-      costo,
-      kilometraje,
-      fecha_ingreso,
-      fecha_entrega,
-      estado
-    } = req.body;
-
-    if (!id_auto || !id_empleado || !fecha_servicio || !tipo_servicio) {
-      return res.status(400).json({
-        message: 'Campos obligatorios faltantes'
-      });
-    }
-
-    const estadoFinal = (estado || 'pendiente').toLowerCase().trim();
-
-    // 🚨 ARMAMOS EL OBJETO MANUALMENTE SIN id_cliente
-    const nuevoServicio = {
-      id_auto: Number(id_auto),
-      id_empleado: Number(id_empleado),
-      fecha_servicio,
-      tipo_servicio,
-      costo: costo ?? 0,
-      kilometraje: kilometraje ?? 0,
-      fecha_ingreso: fecha_ingreso ?? new Date().toISOString(),
-      fecha_entrega: fecha_entrega ?? null,
-      estado: estadoFinal
-    };
-
-    console.log("🚀 INSERTANDO (LIMPIO):", nuevoServicio);
-
-    const { data, error } = await supabase
-      .from('servicios')
-      .insert([nuevoServicio])
-      .select();
-
-    if (error) {
-      console.error("🔥 SUPABASE INSERT ERROR:", error);
-      return res.status(500).json(error);
-    }
-
-    res.status(201).json(data[0]);
-
-  } catch (error) {
-    console.error("🔥 CREATE CATCH:", error);
-    res.status(500).json(error);
-  }
-});
 
 // =============================
 // 5. UPDATE
