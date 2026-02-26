@@ -134,6 +134,7 @@ app.post('/api/servicios', async (req, res) => {
     const nuevoServicio = {
       id_auto,
       id_empleado,
+      id_cliente,
       fecha_servicio,
       tipo_servicio,
       costo: costo ?? 0,
